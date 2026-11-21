@@ -1,0 +1,41 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="shortcut_wird"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_wird"
+        android:shortcutShortLabel="@string/shortcut_wird_short"
+        android:shortcutLongLabel="@string/shortcut_wird_long"
+        android:shortcutDisabledMessage="@string/shortcut_disabled">
+        <intent
+            android:action="com.example.action.QUICK_WIRD"
+            android:targetPackage="com.aistudio.applet.xusyeo"
+            android:targetClass="com.example.MainActivity" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="shortcut_adhkar"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_adhkar"
+        android:shortcutShortLabel="@string/shortcut_adhkar_short"
+        android:shortcutLongLabel="@string/shortcut_adhkar_long"
+        android:shortcutDisabledMessage="@string/shortcut_disabled">
+        <intent
+            android:action="com.example.action.QUICK_ADHKAR"
+            android:targetPackage="com.aistudio.applet.xusyeo"
+            android:targetClass="com.example.MainActivity" />
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="shortcut_prayer"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_prayer"
+        android:shortcutShortLabel="@string/shortcut_prayer_short"
+        android:shortcutLongLabel="@string/shortcut_prayer_long"
+        android:shortcutDisabledMessage="@string/shortcut_disabled">
+        <intent
+            android:action="com.example.action.QUICK_PRAYER"
+            android:targetPackage="com.aistudio.applet.xusyeo"
+            android:targetClass="com.example.MainActivity" />
+    </shortcut>
+</shortcuts>

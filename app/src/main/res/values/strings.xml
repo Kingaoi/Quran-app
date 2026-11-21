@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">القرآن الكريم</string>
+    <string name="widget_quran_summary_description">عرض الصلاة القادمة وتقدم الورد اليومي</string>
+    <string name="widget_prayer_times_description">عرض مواقيت الصلوات الخمس والتاريخ الهجري</string>
+    <string name="shortcut_wird_short">ورد اليوم</string>
+    <string name="shortcut_wird_long">فتح ورد اليوم وخطط الحفظ</string>
+    <string name="shortcut_adhkar_short">الأذكار</string>
+    <string name="shortcut_adhkar_long">أذكار الصباح والمساء والتسبيح</string>
+    <string name="shortcut_prayer_short">مواقيت الصلاة</string>
+    <string name="shortcut_prayer_long">عرض مواقيت الصلاة والقبلة</string>
+    <string name="shortcut_disabled">الاختصار غير متاح حالياً</string>
+</resources>
