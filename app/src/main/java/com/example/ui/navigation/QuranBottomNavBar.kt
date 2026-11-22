@@ -209,6 +209,7 @@ private fun QuranSpotlightNavItem(
     modifier: Modifier = Modifier
 ) {
     val interactionSource = remember { MutableInteractionSource() }
+    val tabLabel = androidx.compose.ui.res.stringResource(tab.labelRes)
     val selectionProgress: State<Float> = animateFloatAsState(
         targetValue = if (isSelected) 1f else 0f,
         animationSpec = tween(durationMillis = 120),
@@ -222,7 +223,7 @@ private fun QuranSpotlightNavItem(
             .minimumInteractiveComponentSize()
             .clip(RoundedCornerShape(18.dp))
             .semantics(mergeDescendants = true) {
-                contentDescription = tab.labelAr
+                contentDescription = tabLabel
                 selected = isSelected
                 role = Role.Tab
             }

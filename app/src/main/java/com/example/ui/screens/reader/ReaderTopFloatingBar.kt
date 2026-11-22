@@ -28,7 +28,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.R
 import com.example.domain.wird.WirdPlanSummary
 import com.example.domain.wird.WirdPortion
 
@@ -123,7 +125,7 @@ internal fun ReaderTopFloatingBar(
                 Box(contentAlignment = Alignment.Center) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
-                        contentDescription = "الرجوع إلى الفهرس",
+                        contentDescription = stringResource(R.string.reader_back_to_index_cd),
                         tint = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.size(21.dp)
                     )
@@ -157,7 +159,9 @@ internal fun ReaderTopFloatingBar(
                 Box(contentAlignment = Alignment.Center) {
                     Icon(
                         imageVector = if (isMemorizationHideMode) Icons.Rounded.VisibilityOff else Icons.Rounded.Visibility,
-                        contentDescription = if (isMemorizationHideMode) "إيقاف اختبار الحفظ" else "تفعيل اختبار الحفظ",
+                        contentDescription = stringResource(
+                            if (isMemorizationHideMode) R.string.reader_memorization_stop_cd else R.string.reader_memorization_start_cd
+                        ),
                         tint = if (isMemorizationHideMode) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.size(20.dp)
                     )
@@ -181,7 +185,7 @@ internal fun ReaderTopFloatingBar(
                 Box(contentAlignment = Alignment.Center) {
                     Icon(
                         imageVector = Icons.Rounded.BrightnessMedium,
-                        contentDescription = "سطوع القراءة وإضاءة الشاشة",
+                        contentDescription = stringResource(R.string.reader_dimmer_cd),
                         tint = if (isDimmerActive) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.size(20.dp)
                     )
@@ -201,7 +205,9 @@ internal fun ReaderTopFloatingBar(
                 Box(contentAlignment = Alignment.Center) {
                     Icon(
                         imageVector = if (showAudioSheet) Icons.Rounded.Close else Icons.Rounded.Headphones,
-                        contentDescription = if (showAudioSheet) "إغلاق مشغل التلاوة" else "مشغل التلاوة والقراء",
+                        contentDescription = stringResource(
+                            if (showAudioSheet) R.string.reader_audio_close_cd else R.string.reader_audio_open_cd
+                        ),
                         tint = if (showAudioSheet) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier.size(21.dp)
                     )
@@ -225,7 +231,7 @@ internal fun ReaderTopFloatingBar(
                 Box(contentAlignment = Alignment.Center) {
                     Icon(
                         imageVector = if (isCurrentPageBookmarked) Icons.Rounded.Bookmark else Icons.Rounded.BookmarkBorder,
-                        contentDescription = "حفظ علامة مرجعية",
+                        contentDescription = stringResource(R.string.reader_bookmark_cd),
                         tint = if (isCurrentPageBookmarked) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(20.dp)
                     )

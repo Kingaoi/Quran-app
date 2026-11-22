@@ -1,7 +1,9 @@
 package com.example.ui.navigation
 
 import android.net.Uri
+import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.R
 
 internal const val ROUTE_HOME = "home"
 internal const val ROUTE_READER_ARG_FROM_WIRD = "fromWird"
@@ -26,37 +28,37 @@ internal fun adhkarDetailRoute(categoryId: String, chapterTitle: String = "", in
 
 internal enum class HomeTab(
     val route: String,
-    val labelAr: String,
+    @StringRes val labelRes: Int,
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector
 ) {
     WIRD(
         route = "wird",
-        labelAr = "ورد اليوم",
+        labelRes = R.string.tab_wird,
         selectedIcon = QuranNavIcons.WirdSelected,
         unselectedIcon = QuranNavIcons.WirdOutlined
     ),
     ADHKAR(
         route = "adhkar",
-        labelAr = "الأذكار",
+        labelRes = R.string.tab_adhkar,
         selectedIcon = QuranNavIcons.AdhkarSelected,
         unselectedIcon = QuranNavIcons.AdhkarOutlined
     ),
     PRAYER_TIMES(
         route = "prayer_times",
-        labelAr = "الصلاة",
+        labelRes = R.string.tab_prayer,
         selectedIcon = QuranNavIcons.PrayerSelected,
         unselectedIcon = QuranNavIcons.PrayerOutlined
     ),
     INDEX(
         route = "index",
-        labelAr = "الفهرس",
+        labelRes = R.string.tab_index,
         selectedIcon = QuranNavIcons.MushafSelected,
         unselectedIcon = QuranNavIcons.MushafOutlined
     ),
     MORE(
         route = "more",
-        labelAr = "المزيد",
+        labelRes = R.string.tab_more,
         selectedIcon = QuranNavIcons.MoreSelected,
         unselectedIcon = QuranNavIcons.MoreOutlined
     )

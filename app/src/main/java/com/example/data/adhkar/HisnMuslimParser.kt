@@ -55,6 +55,7 @@ object HisnMuslimParser {
 
             val rawId = obj.optInt("ID", obj.optInt("id", i + 1))
             val repeat = obj.optInt("REPEAT", obj.optInt("repeat", 1)).coerceAtLeast(1)
+            val scopedLabel = resolveScopedChapterLabel(category, chapter.title)
             val rawNote = firstNonBlank(
                 obj,
                 "LANGUAGE_ARABIC_TRANSLATED_TEXT",
@@ -62,13 +63,13 @@ object HisnMuslimParser {
                 "reference",
                 "bless",
                 "description"
-            ).ifBlank { "من أذكار ${chapter.title}" }
+            ).ifBlank { "من $scopedLabel" }
             val itemAudio = normalizeHttpsUrl(
                 firstNonBlank(obj, "AUDIO", "audio", "AUDIO_URL", "audio_url")
             ).ifBlank { chapter.audioUrl }
 
             val baseId = "hisn_${category.id}_${chapter.id}_$rawId"
-            val splitTasbih = trySplitCombinedTasbih(baseId, category, chapter.title, text, repeat, rawNote, itemAudio)
+            val splitTasbih = trySplitCombinedTasbih(baseId, category, scopedLabel, text, repeat, rawNote, itemAudio)
             if (splitTasbih != null) {
                 result.addAll(splitTasbih)
             } else {
@@ -76,13 +77,13 @@ object HisnMuslimParser {
                     DhikrItem(
                         id = baseId,
                         category = category,
-                        title = buildConciseTitle(chapter.title, text, i + 1),
+                        title = buildConciseTitle(scopedLabel, text, i + 1),
                         arabicText = text,
                         virtueOrNote = rawNote,
                         targetCount = repeat,
-                        reference = "حصن المسلم • ${chapter.title}",
+                        reference = "حصن المسلم • $scopedLabel",
                         audioUrl = itemAudio,
-                        chapterTitle = chapter.title
+                        chapterTitle = scopedLabel
                     )
                 )
             }
@@ -132,17 +133,38 @@ object HisnMuslimParser {
                     val id = obj.optString("id")
                     val text = obj.optString("arabicText")
                     if (id.isNotBlank() && text.isNotBlank()) {
+                        val rawChapter = obj.optString("chapterTitle", "")
+                        val scopedChapter = resolveScopedChapterLabel(cat, rawChapter)
+                        val rawTitle = obj.optString("title", cat.titleAr)
+                        val hasNumericSuffix = Regex("""\(\d+\)$""").containsMatchIn(rawTitle.trim())
+                        val cleanTitle = if (rawTitle.contains("الصباح والمساء") || hasNumericSuffix) {
+                            buildConciseTitle(scopedChapter.ifBlank { cat.titleAr }, text, i + 1)
+                        } else {
+                            rawTitle
+                        }
+                        val rawRef = obj.optString("reference", "حصن المسلم")
+                        val cleanRef = if ((cat == DhikrCategory.MORNING || cat == DhikrCategory.EVENING) && rawRef.contains("الصباح والمساء")) {
+                            "حصن المسلم • ${cat.titleAr}"
+                        } else {
+                            rawRef
+                        }
+                        val rawNote = obj.optString("virtueOrNote")
+                        val cleanNote = if ((cat == DhikrCategory.MORNING || cat == DhikrCategory.EVENING) && rawNote.contains("الصباح والمساء")) {
+                            "من ${cat.titleAr}"
+                        } else {
+                            rawNote
+                        }
                         add(
                             DhikrItem(
                                 id = id,
                                 category = cat,
-                                title = obj.optString("title", cat.titleAr),
+                                title = cleanTitle,
                                 arabicText = text,
-                                virtueOrNote = obj.optString("virtueOrNote"),
+                                virtueOrNote = cleanNote,
                                 targetCount = obj.optInt("targetCount", 1).coerceAtLeast(1),
-                                reference = obj.optString("reference", "حصن المسلم"),
+                                reference = cleanRef,
                                 audioUrl = obj.optString("audioUrl", ""),
-                                chapterTitle = obj.optString("chapterTitle", "")
+                                chapterTitle = scopedChapter
                             )
                         )
                     }
@@ -181,14 +203,27 @@ object HisnMuslimParser {
         return ""
     }
 
-    private fun buildConciseTitle(chapterTitle: String, arabicText: String, index: Int): String {
-        val cleanText = arabicText.replace("\n", " ").trim()
-        val firstChunk = cleanText.split('،', '.', '؟', '(', ':').firstOrNull()?.trim().orEmpty()
+    private fun resolveScopedChapterLabel(category: DhikrCategory, rawChapterTitle: String): String {
+        val trimmed = rawChapterTitle.trim()
         return when {
-            firstChunk.length in 6..42 -> firstChunk
-            cleanText.length <= 42 -> cleanText
-            else -> "$chapterTitle ($index)"
+            (category == DhikrCategory.MORNING || category == DhikrCategory.EVENING) &&
+                trimmed.contains("الصباح والمساء") -> category.titleAr
+            else -> trimmed
         }
+    }
+
+    internal fun buildConciseTitle(chapterTitle: String, arabicText: String, index: Int = 1): String {
+        val cleanText = arabicText.replace("\n", " ").replace(Regex("\\s+"), " ").trim()
+        val firstChunk = cleanText.split('،', '.', '؟', '(', ':').firstOrNull()?.trim().orEmpty()
+        if (firstChunk.length in 6..42) return firstChunk
+        if (cleanText.length <= 42 && cleanText.isNotEmpty()) return cleanText
+        if (cleanText.isNotEmpty()) {
+            val slice = cleanText.take(38)
+            val lastSpace = slice.lastIndexOf(' ')
+            val clipped = if (lastSpace >= 16) slice.substring(0, lastSpace) else slice
+            return "${clipped.trimEnd('،', '.', ' ')}…"
+        }
+        return "$chapterTitle ($index)"
     }
 
     private fun trySplitCombinedTasbih(

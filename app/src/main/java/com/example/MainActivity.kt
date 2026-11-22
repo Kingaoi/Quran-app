@@ -56,7 +56,8 @@ class MainActivity : ComponentActivity() {
         HighRefreshRateHelper.observeAndLock(this, this)
         setContent {
             val windowSizeClass = calculateWindowSizeClass(this)
-            val viewModel: QuranViewModel = viewModel()
+            val appContainer = (application as QuranApplication).container
+            val viewModel: QuranViewModel = viewModel(factory = QuranViewModel.factory(appContainer))
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             val offlineState by viewModel.offlineState.collectAsStateWithLifecycle()
             val launchEvent by launchEventFlow.collectAsStateWithLifecycle()
@@ -134,12 +135,12 @@ private fun LoadingSplashView() {
         ) {
             RubElHizbBadge(number = 114, size = 72.dp)
             Text(
-                text = "القرآن الكريم",
+                text = androidx.compose.ui.res.stringResource(R.string.app_name),
                 style = MaterialTheme.typography.displayLarge,
                 color = MaterialTheme.colorScheme.primary
             )
             Text(
-                text = "جاري تجهيز المصحف الشريف...",
+                text = androidx.compose.ui.res.stringResource(R.string.splash_loading_subtitle),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

@@ -32,9 +32,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.example.R
 import com.example.ui.theme.quranColors
 
 @Composable
@@ -57,7 +59,7 @@ internal fun PrayerTopBar(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Text(
-                    text = "أوقات الصلاة",
+                    text = stringResource(R.string.prayer_title),
                     style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
                     color = qc.text
                 )
@@ -68,7 +70,7 @@ internal fun PrayerTopBar(
                 ) {}
             }
             Text(
-                text = "المواقيت الفلكية الدقيقة واتجاه القبلة",
+                text = stringResource(R.string.prayer_subtitle),
                 style = MaterialTheme.typography.bodySmall,
                 color = qc.textMuted,
                 maxLines = 1,
@@ -98,7 +100,7 @@ internal fun PrayerTopBar(
                 ) {
                     Icon(
                         imageVector = Icons.Rounded.CalendarMonth,
-                        contentDescription = "التقويم الهجري"
+                        contentDescription = stringResource(R.string.prayer_hijri_calendar_cd)
                     )
                 }
             }
@@ -120,7 +122,7 @@ internal fun PrayerTopBar(
                 ) {
                     Icon(
                         imageVector = Icons.Rounded.Explore,
-                        contentDescription = "عرض أو إخفاء بوصلة القبلة"
+                        contentDescription = stringResource(R.string.prayer_qibla_toggle_cd)
                     )
                 }
             }
@@ -152,7 +154,7 @@ internal fun PrayerHeroDateNavRow(
             Box(contentAlignment = Alignment.Center) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
-                    contentDescription = "اليوم السابق",
+                    contentDescription = stringResource(R.string.prayer_prev_day_cd),
                     tint = qc.primary
                 )
             }
@@ -202,7 +204,7 @@ internal fun PrayerHeroDateNavRow(
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            text = "العودة لليوم",
+                            text = stringResource(R.string.prayer_today_label),
                             style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                             color = qc.primary
                         )
@@ -220,7 +222,7 @@ internal fun PrayerHeroDateNavRow(
             Box(contentAlignment = Alignment.Center) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowLeft,
-                    contentDescription = "اليوم التالي",
+                    contentDescription = stringResource(R.string.prayer_next_day_cd),
                     tint = qc.primary
                 )
             }

@@ -35,11 +35,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import com.example.R
 import com.example.data.local.AdhanSoundMode
 import com.example.data.local.PrayerSettings
 import com.example.data.prayer.ExactAlarmCompat
@@ -76,20 +78,16 @@ internal fun MorePrayerAlarmExtrasGroup(
         AdhanVoices.byId(prayerSettings.selectedAdhanVoiceId)
     }
     val isVoiceCached = selectedVoice.id in cachedAdhanVoiceIds
-    val subtitleText = buildString {
-        append(selectedVoice.nameAr)
-        if (isVoiceCached) append(" • محفوظ أوفلاين")
-        if (prayerSettings.adhanSoundMode != AdhanSoundMode.FULL_ADHAN) {
-            append(" (يُشغّل في وضع الأذان الكامل)")
-        }
-    }
+    val cachedSuffix = if (isVoiceCached) stringResource(R.string.more_adhan_voice_cached_suffix) else ""
+    val fullOnlySuffix = if (prayerSettings.adhanSoundMode != AdhanSoundMode.FULL_ADHAN) stringResource(R.string.more_adhan_voice_full_only_suffix) else ""
+    val subtitleText = selectedVoice.nameAr + cachedSuffix + fullOnlySuffix
 
     val qc = MaterialTheme.quranColors
 
     MoreGroupDivider()
 
     MoreSettingActionRow(
-        title = "صوت المؤذن",
+        title = stringResource(R.string.more_adhan_voice_title),
         subtitle = subtitleText,
         icon = Icons.Rounded.GraphicEq,
         iconTint = qc.categoryPastelAt(4),
@@ -100,12 +98,10 @@ internal fun MorePrayerAlarmExtrasGroup(
     MoreGroupDivider()
 
     MoreSettingActionRow(
-        title = "إذن التنبيهات الدقيقة",
-        subtitle = if (canExact) {
-            "مفعّل — تصل تنبيهات الصلاة والأذكار في وقتها بالثانية"
-        } else {
-            "اضغط للسماح بجدولة التنبيهات الدقيقة في أندرويد"
-        },
+        title = stringResource(R.string.more_exact_alarm_title),
+        subtitle = stringResource(
+            if (canExact) R.string.more_exact_alarm_enabled_sub else R.string.more_exact_alarm_disabled_sub
+        ),
         icon = Icons.Rounded.AlarmOn,
         iconTint = if (canExact) qc.success else qc.danger,
         onClick = {
@@ -131,7 +127,9 @@ internal fun MorePrayerAlarmExtrasGroup(
                         modifier = Modifier.size(14.dp)
                     )
                     Text(
-                        text = if (canExact) "دقيق" else "تفعيل",
+                        text = stringResource(
+                            if (canExact) R.string.more_exact_alarm_badge_on else R.string.more_exact_alarm_badge_off
+                        ),
                         style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                         color = if (canExact) qc.success else qc.danger
                     )
@@ -143,8 +141,8 @@ internal fun MorePrayerAlarmExtrasGroup(
     MoreGroupDivider()
 
     MoreSettingActionRow(
-        title = "اختبار صوت والتنبيه الآن",
-        subtitle = "تجربة فورية لصوت الأذان وإشعار الصلاة بالإعدادات الحالية",
+        title = stringResource(R.string.more_test_prayer_alert_title),
+        subtitle = stringResource(R.string.more_test_prayer_alert_sub),
         icon = Icons.Rounded.NotificationsActive,
         iconTint = qc.categoryPastelAt(0),
         onClick = {
@@ -191,12 +189,12 @@ fun ExactAlarmWarningBanner(
             )
             Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Text(
-                    text = "تنبيهات الصلاة تحتاج إذن المنبّه الدقيق",
+                    text = stringResource(R.string.exact_alarm_warning_title),
                     style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                     color = qc.danger
                 )
                 Text(
-                    text = "اضغط هنا لتفعيل الدقة الكاملة حتى يصل الأذان في موعده دون تأخير.",
+                    text = stringResource(R.string.exact_alarm_warning_body),
                     style = MaterialTheme.typography.bodySmall,
                     color = qc.text
                 )

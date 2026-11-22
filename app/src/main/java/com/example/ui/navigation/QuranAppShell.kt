@@ -217,7 +217,7 @@ fun QuranAppShell(
                                 }
                             }
 
-                        addAdhkarNavigationRoutes(navController = navController, adhkarViewModel = adhkarViewModel, adhkarState = adhkarState, uiState = uiState)
+                        addAdhkarNavigationRoutes(navController = navController, adhkarViewModel = adhkarViewModel, quranViewModel = viewModel)
 
                         composable(
                             route = ROUTE_READER,

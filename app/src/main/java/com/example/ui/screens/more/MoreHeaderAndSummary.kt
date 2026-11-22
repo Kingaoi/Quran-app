@@ -39,9 +39,11 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.BuildConfig
+import com.example.R
 import com.example.data.local.PrayerSettings
 import com.example.data.local.ReaderSettings
 import com.example.domain.model.LocalUseWesternDigits
@@ -62,13 +64,13 @@ internal fun MoreTopBar(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(2.dp)
     ) {
         Text(
-            text = "المزيد والإعدادات",
+            text = stringResource(R.string.more_title),
             style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
             color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.testTag("more_screen_title")
         )
         Text(
-            text = "التحكم الكامل بالمظهر والمصحف ومواقيت الصلاة والورد اليومي",
+            text = stringResource(R.string.more_subtitle),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -84,7 +86,7 @@ internal fun MoreSearchField(
     androidx.compose.material3.OutlinedTextField(
         value = query,
         onValueChange = onQueryChange,
-        placeholder = { Text("ابحث في الإعدادات (الأرقام، التفسير، الأذان...)") },
+        placeholder = { Text(stringResource(R.string.more_search_placeholder)) },
         leadingIcon = {
             Icon(Icons.Rounded.Search, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
         },
@@ -94,7 +96,7 @@ internal fun MoreSearchField(
                     onClick = { onQueryChange("") },
                     modifier = Modifier.size(48.dp)
                 ) {
-                    Icon(Icons.Rounded.Close, contentDescription = "مسح")
+                    Icon(Icons.Rounded.Close, contentDescription = stringResource(R.string.more_search_clear_cd))
                 }
             }
         } else null,

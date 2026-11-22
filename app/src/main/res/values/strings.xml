@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">القرآن الكريم</string>
+    <string name="splash_loading_subtitle">جاري تجهيز المصحف الشريف...</string>
+
+    <!-- Widgets & Shortcuts -->
     <string name="widget_quran_summary_description">عرض الصلاة القادمة وتقدم الورد اليومي</string>
     <string name="widget_prayer_times_description">عرض مواقيت الصلوات الخمس والتاريخ الهجري</string>
     <string name="shortcut_wird_short">ورد اليوم</string>
@@ -9,4 +12,108 @@
     <string name="shortcut_prayer_short">مواقيت الصلاة</string>
     <string name="shortcut_prayer_long">عرض مواقيت الصلاة والقبلة</string>
     <string name="shortcut_disabled">الاختصار غير متاح حالياً</string>
+    <string name="shortcut_continue_surah_short">متابعة: %1$s</string>
+    <string name="shortcut_continue_page_short">آخر صفحة (%1$s)</string>
+    <string name="shortcut_continue_surah_long">متابعة القراءة • سورة %1$s (ص %2$s)</string>
+    <string name="shortcut_continue_page_long">متابعة القراءة من الصفحة %1$s</string>
+
+    <!-- Main Navigation Tabs -->
+    <string name="tab_wird">ورد اليوم</string>
+    <string name="tab_adhkar">الأذكار</string>
+    <string name="tab_prayer">الصلاة</string>
+    <string name="tab_index">الفهرس</string>
+    <string name="tab_more">المزيد</string>
+
+    <!-- Mini Audio Player -->
+    <string name="audio_mini_memorization_badge"> • 🔁 تحفيظ</string>
+    <string name="audio_mini_sleep_badge"> • 🌙 %1$sد</string>
+    <string name="audio_mini_surah_ayah">سورة %1$s • آية %2$s</string>
+    <string name="audio_mini_repeat_ayah_cd">تكرار الآية</string>
+    <string name="audio_mini_prev_ayah_cd">الآية السابقة</string>
+    <string name="audio_mini_pause_cd">إيقاف مؤقت</string>
+    <string name="audio_mini_play_cd">تشغيل</string>
+    <string name="audio_mini_next_ayah_cd">الآية التالية</string>
+    <string name="audio_mini_close_cd">إغلاق المشغل</string>
+
+    <!-- Adhkar Reader & Thank-You Card -->
+    <string name="adhkar_back_cd">رجوع إلى أقسام الأذكار</string>
+    <string name="adhkar_reset_section_cd">تصفير عداد القسم</string>
+    <string name="adhkar_font_decrease_cd">تصغير الخط</string>
+    <string name="adhkar_font_increase_cd">تكبير الخط</string>
+    <string name="adhkar_top_bar_collapse_cd">طي الشريط العلوي</string>
+    <string name="adhkar_top_bar_expand_cd">توسيع الشريط العلوي</string>
+    <string name="adhkar_bottom_bar_collapse_cd">طي البطاقة السفلية</string>
+    <string name="adhkar_bottom_bar_expand_cd">توسيع البطاقة السفلية</string>
+    <string name="adhkar_audio_stop_cd">إيقاف الصوت</string>
+    <string name="adhkar_audio_play_cd">تشغيل الذكر صوتياً</string>
+    <string name="adhkar_favorite_remove_cd">إزالة من المفضلة</string>
+    <string name="adhkar_favorite_add_cd">إضافة للمفضلة</string>
+    <string name="adhkar_done_label">تم</string>
+    <string name="adhkar_once_label">مرة واحدة</string>
+    <string name="adhkar_remaining_format">المتبقي %1$s</string>
+    <string name="adhkar_reset_item_cd">إعادة العداد</string>
+    <string name="adhkar_copy_label">نسخ</string>
+    <string name="adhkar_copy_cd">نسخ الذكر</string>
+    <string name="adhkar_share_label">مشاركة</string>
+    <string name="adhkar_share_cd">مشاركة الذكر</string>
+    <string name="adhkar_share_as_image">مشاركة كبطاقة صورة</string>
+    <string name="adhkar_share_as_text">مشاركة كنص</string>
+    <string name="adhkar_finish_section">إتمام القسم ✓</string>
+    <string name="adhkar_next_label">التالي</string>
+    <string name="adhkar_prev_label">السابق</string>
+    <string name="adhkar_copied_toast">تم نسخ الذكر</string>
+    <string name="adhkar_section_reset_toast">تم تصفير عداد %1$s</string>
+    <string name="adhkar_thank_you_headline_all_done">ما شاء الله! أتممت جميع الأذكار</string>
+    <string name="adhkar_thank_you_headline_reached_end">شكراً لك، وصلت إلى ختام القسم</string>
+    <string name="adhkar_thank_you_message_all_done">شكراً لك على مواظبتك المباركة؛ لقد أتممت جميع أذكار «%1$s» بحمد الله. بارك الله في وقتك ولسانك الذاكر، وجعل ما قرأت حرزاً ونوراً في ميزان حسناتك.</string>
+    <string name="adhkar_thank_you_message_partial">بارك الله في وقتك ولسانك الذاكر على قراءة أذكار «%1$s». أتممت %2$s من أذكار القسم، ويمكنك إكمال الأذكار المتبقية أو إنهاء الورد.</string>
+    <string name="adhkar_thank_you_icon_cd">ختام القسم</string>
+    <string name="adhkar_thank_you_complete_remaining">إكمال المتبقي</string>
+    <string name="adhkar_thank_you_restart_section">إعادة القسم</string>
+
+    <!-- Mushaf Reader Floating Chrome -->
+    <string name="reader_back_to_index_cd">الرجوع إلى الفهرس</string>
+    <string name="reader_memorization_stop_cd">إيقاف اختبار الحفظ</string>
+    <string name="reader_memorization_start_cd">تفعيل اختبار الحفظ</string>
+    <string name="reader_dimmer_cd">سطوع القراءة وإضاءة الشاشة</string>
+    <string name="reader_audio_close_cd">إغلاق مشغل التلاوة</string>
+    <string name="reader_audio_open_cd">مشغل التلاوة والقراء</string>
+    <string name="reader_bookmark_cd">حفظ علامة مرجعية</string>
+    <string name="reader_page_ayahs_label">آيات الصفحة</string>
+    <string name="reader_scrubbing_page_format">صفحة %1$s</string>
+    <string name="reader_header_surah_ayah_format">سورة %1$s - الآية (%2$s)</string>
+    <string name="reader_quick_jump_cd">الانتقال السريع</string>
+    <string name="reader_page_short_format">ص %1$s</string>
+    <string name="reader_prev_page_cd">الصفحة السابقة</string>
+    <string name="reader_next_page_cd">الصفحة التالية</string>
+    <string name="reader_autoscroll_stop_cd">إيقاف التمرير التلقائي</string>
+    <string name="reader_autoscroll_start_cd">تفعيل التمرير التلقائي</string>
+    <string name="reader_autoscroll_label">تلقائي</string>
+
+    <!-- Prayer Top Bar & Exact Alarm Settings -->
+    <string name="prayer_title">أوقات الصلاة</string>
+    <string name="prayer_subtitle">المواقيت الفلكية الدقيقة واتجاه القبلة</string>
+    <string name="prayer_hijri_calendar_cd">التقويم الهجري</string>
+    <string name="prayer_qibla_toggle_cd">عرض أو إخفاء بوصلة القبلة</string>
+    <string name="prayer_prev_day_cd">اليوم السابق</string>
+    <string name="prayer_today_label">العودة لليوم</string>
+    <string name="prayer_next_day_cd">اليوم التالي</string>
+    <string name="more_adhan_voice_title">صوت المؤذن</string>
+    <string name="more_adhan_voice_cached_suffix"> • محفوظ أوفلاين</string>
+    <string name="more_adhan_voice_full_only_suffix"> (يُشغّل في وضع الأذان الكامل)</string>
+    <string name="more_exact_alarm_title">إذن التنبيهات الدقيقة</string>
+    <string name="more_exact_alarm_enabled_sub">مفعّل — تصل تنبيهات الصلاة والأذكار في وقتها بالثانية</string>
+    <string name="more_exact_alarm_disabled_sub">اضغط للسماح بجدولة التنبيهات الدقيقة في أندرويد</string>
+    <string name="more_exact_alarm_badge_on">دقيق</string>
+    <string name="more_exact_alarm_badge_off">تفعيل</string>
+    <string name="more_test_prayer_alert_title">اختبار صوت والتنبيه الآن</string>
+    <string name="more_test_prayer_alert_sub">تجربة فورية لصوت الأذان وإشعار الصلاة بالإعدادات الحالية</string>
+    <string name="exact_alarm_warning_title">تنبيهات الصلاة تحتاج إذن المنبّه الدقيق</string>
+    <string name="exact_alarm_warning_body">اضغط هنا لتفعيل الدقة الكاملة حتى يصل الأذان في موعده دون تأخير.</string>
+
+    <!-- More Header & Search -->
+    <string name="more_title">المزيد والإعدادات</string>
+    <string name="more_subtitle">التحكم الكامل بالمظهر والمصحف ومواقيت الصلاة والورد اليومي</string>
+    <string name="more_search_placeholder">ابحث في الإعدادات (الأرقام، التفسير، الأذان...)</string>
+    <string name="more_search_clear_cd">مسح</string>
 </resources>

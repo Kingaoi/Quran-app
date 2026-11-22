@@ -23,14 +23,14 @@ object AppShortcutsHelper {
             val cleanPage = lastReadPage.coerceIn(1, 604)
             val pageText = cleanPage.toAppDigits(useWesternDigits)
             val shortLabel = if (!surahNameAr.isNullOrBlank()) {
-                "متابعة: $surahNameAr"
+                context.getString(R.string.shortcut_continue_surah_short, surahNameAr)
             } else {
-                "آخر صفحة ($pageText)"
+                context.getString(R.string.shortcut_continue_page_short, pageText)
             }
             val longLabel = if (!surahNameAr.isNullOrBlank()) {
-                "متابعة القراءة • سورة $surahNameAr (ص $pageText)"
+                context.getString(R.string.shortcut_continue_surah_long, surahNameAr, pageText)
             } else {
-                "متابعة القراءة من الصفحة $pageText"
+                context.getString(R.string.shortcut_continue_page_long, pageText)
             }
             val launchIntent = Intent(context, MainActivity::class.java).apply {
                 action = AppLaunchDestination.ACTION_QUICK_LAST_PAGE

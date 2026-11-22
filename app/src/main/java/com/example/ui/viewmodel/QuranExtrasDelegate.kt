@@ -2,6 +2,7 @@ package com.example.ui.viewmodel
 
 import android.app.Application
 import androidx.compose.runtime.Immutable
+import com.example.data.audio.AudioPlaylistRepository
 import com.example.data.audio.SurahAudioDownloadState
 import com.example.data.audio.SurahAudioStorage
 import com.example.data.local.AyahBookmark
@@ -36,15 +37,28 @@ data class AyahTafsirUiState(
 )
 
 class QuranExtrasDelegate(
-    application: Application,
     private val scope: CoroutineScope,
-    val surahAudioStorage: SurahAudioStorage
+    val surahAudioStorage: SurahAudioStorage,
+    private val bookmarksRepository: BookmarksRepository,
+    private val searchHistoryRepository: IndexSearchHistoryRepository,
+    val statsRepository: ReadingStatsRepository,
+    val tafsirRepository: TafsirRepository,
+    val playlists: AudioPlaylistDelegate
 ) {
-    private val bookmarksRepository = BookmarksRepository(application)
-    private val searchHistoryRepository = IndexSearchHistoryRepository(application)
-    val statsRepository = ReadingStatsRepository(application)
-    val tafsirRepository = TafsirRepository(application)
-    val playlists = AudioPlaylistDelegate(application, scope)
+    constructor(
+        application: Application,
+        scope: CoroutineScope,
+        surahAudioStorage: SurahAudioStorage
+    ) : this(
+        scope = scope,
+        surahAudioStorage = surahAudioStorage,
+        bookmarksRepository = BookmarksRepository(application),
+        searchHistoryRepository = IndexSearchHistoryRepository(application),
+        statsRepository = ReadingStatsRepository(application),
+        tafsirRepository = TafsirRepository(application),
+        playlists = AudioPlaylistDelegate(AudioPlaylistRepository(application), scope)
+    )
+
     var onStorageMutated: () -> Unit = {}
 
     val bookmarksState: StateFlow<List<AyahBookmark>> = bookmarksRepository.bookmarksFlow

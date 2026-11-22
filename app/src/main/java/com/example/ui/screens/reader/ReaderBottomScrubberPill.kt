@@ -37,9 +37,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.R
 import com.example.domain.model.toAppDigits
 import com.example.domain.wird.WirdPlanSummary
 import com.example.domain.wird.WirdPortion
@@ -173,7 +175,7 @@ internal fun ReaderBottomScrubberPill(
                     modifier = Modifier.testTag("open_page_ayahs_button")
                 ) {
                     Text(
-                        text = "آيات الصفحة",
+                        text = stringResource(R.string.reader_page_ayahs_label),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
@@ -190,9 +192,9 @@ internal fun ReaderBottomScrubberPill(
                 ) {
                     Text(
                         text = if (isScrubbing) {
-                            "صفحة ${sliderPage.toInt().toAppDigits()}"
+                            stringResource(R.string.reader_scrubbing_page_format, sliderPage.toInt().toAppDigits())
                         } else {
-                            "سورة $currentSurahLabel - الآية (${firstAyahNumber.toAppDigits()})"
+                            stringResource(R.string.reader_header_surah_ayah_format, currentSurahLabel, firstAyahNumber.toAppDigits())
                         },
                         style = MaterialTheme.typography.titleSmall.copy(
                             fontSize = 16.sp
@@ -204,7 +206,7 @@ internal fun ReaderBottomScrubberPill(
                     Spacer(modifier = Modifier.width(2.dp))
                     Icon(
                         imageVector = Icons.Rounded.KeyboardArrowDown,
-                        contentDescription = "الانتقال السريع",
+                        contentDescription = stringResource(R.string.reader_quick_jump_cd),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.size(18.dp)
                     )
@@ -217,7 +219,7 @@ internal fun ReaderBottomScrubberPill(
                     modifier = Modifier.testTag("open_page_jump_button")
                 ) {
                     Text(
-                        text = "ص ${currentPage.toAppDigits()}",
+                        text = stringResource(R.string.reader_page_short_format, currentPage.toAppDigits()),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.secondary,
                         modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
@@ -241,7 +243,7 @@ internal fun ReaderBottomScrubberPill(
                     Box(contentAlignment = Alignment.Center) {
                         Icon(
                             imageVector = Icons.Rounded.ArrowUpward,
-                            contentDescription = "الصفحة السابقة",
+                            contentDescription = stringResource(R.string.reader_prev_page_cd),
                             tint = MaterialTheme.colorScheme.surface,
                             modifier = Modifier.size(18.dp)
                         )
@@ -282,7 +284,7 @@ internal fun ReaderBottomScrubberPill(
                     Box(contentAlignment = Alignment.Center) {
                         Icon(
                             imageVector = Icons.Rounded.ArrowDownward,
-                            contentDescription = "الصفحة التالية",
+                            contentDescription = stringResource(R.string.reader_next_page_cd),
                             tint = MaterialTheme.colorScheme.surface,
                             modifier = Modifier.size(18.dp)
                         )
@@ -305,12 +307,14 @@ internal fun ReaderBottomScrubberPill(
                     ) {
                         Icon(
                             imageVector = Icons.Rounded.SlowMotionVideo,
-                            contentDescription = if (autoScrollEnabled) "إيقاف التمرير التلقائي" else "تفعيل التمرير التلقائي",
+                            contentDescription = stringResource(
+                                if (autoScrollEnabled) R.string.reader_autoscroll_stop_cd else R.string.reader_autoscroll_start_cd
+                            ),
                             tint = if (autoScrollEnabled) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.primary,
                             modifier = Modifier.size(16.dp)
                         )
                         Text(
-                            text = "تلقائي",
+                            text = stringResource(R.string.reader_autoscroll_label),
                             style = MaterialTheme.typography.labelSmall,
                             color = if (autoScrollEnabled) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface,
                             maxLines = 1

@@ -33,8 +33,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.example.R
 import com.example.data.audio.AudioPlaybackState
 import com.example.domain.model.toArabicIndicDigits
 
@@ -84,10 +86,9 @@ fun MiniAudioPlayerBar(
 
                     val playlistSession = playbackState.playlistSession
                     val sleepMin = playbackState.sleepTimerRemainingSec?.let { ((it + 59) / 60).coerceAtLeast(1) }
-                    val statusSuffix = buildString {
-                        if (playbackState.memorizationLoop.enabled) append(" • 🔁 تحفيظ")
-                        if (sleepMin != null) append(" • 🌙 ${sleepMin.toArabicIndicDigits()}د")
-                    }
+                    val memBadge = if (playbackState.memorizationLoop.enabled) stringResource(R.string.audio_mini_memorization_badge) else ""
+                    val sleepBadge = if (sleepMin != null) stringResource(R.string.audio_mini_sleep_badge, sleepMin.toArabicIndicDigits()) else ""
+                    val statusSuffix = memBadge + sleepBadge
                     Column(
                         modifier = Modifier
                             .weight(1f)
@@ -99,7 +100,11 @@ fun MiniAudioPlayerBar(
                             .testTag("mini_player_jump_to_mushaf")
                     ) {
                         Text(
-                            text = "سورة ${playbackState.surahNameAr} • آية ${playbackState.currentAyah.toArabicIndicDigits()}",
+                            text = stringResource(
+                                R.string.audio_mini_surah_ayah,
+                                playbackState.surahNameAr,
+                                playbackState.currentAyah.toArabicIndicDigits()
+                            ),
                             style = MaterialTheme.typography.titleSmall,
                             color = MaterialTheme.colorScheme.onSurface,
                             maxLines = 1,
@@ -136,7 +141,7 @@ fun MiniAudioPlayerBar(
                         ) {
                             Icon(
                                 imageVector = Icons.Rounded.RepeatOne,
-                                contentDescription = "تكرار الآية",
+                                contentDescription = stringResource(R.string.audio_mini_repeat_ayah_cd),
                                 tint = if (playbackState.repeatAyah) {
                                     MaterialTheme.colorScheme.primary
                                 } else {
@@ -151,7 +156,7 @@ fun MiniAudioPlayerBar(
                         ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Rounded.NavigateBefore,
-                                contentDescription = "الآية السابقة"
+                                contentDescription = stringResource(R.string.audio_mini_prev_ayah_cd)
                             )
                         }
 
@@ -177,7 +182,9 @@ fun MiniAudioPlayerBar(
                                         } else {
                                             Icons.Rounded.PlayArrow
                                         },
-                                        contentDescription = if (playbackState.isPlaying) "إيقاف مؤقت" else "تشغيل",
+                                        contentDescription = stringResource(
+                                            if (playbackState.isPlaying) R.string.audio_mini_pause_cd else R.string.audio_mini_play_cd
+                                        ),
                                         tint = MaterialTheme.colorScheme.onPrimary
                                     )
                                 }
@@ -190,7 +197,7 @@ fun MiniAudioPlayerBar(
                         ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Rounded.NavigateNext,
-                                contentDescription = "الآية التالية"
+                                contentDescription = stringResource(R.string.audio_mini_next_ayah_cd)
                             )
                         }
 
@@ -200,7 +207,7 @@ fun MiniAudioPlayerBar(
                         ) {
                             Icon(
                                 imageVector = Icons.Rounded.Close,
-                                contentDescription = "إغلاق المشغل",
+                                contentDescription = stringResource(R.string.audio_mini_close_cd),
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }

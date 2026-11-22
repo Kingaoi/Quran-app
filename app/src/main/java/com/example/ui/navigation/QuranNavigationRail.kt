@@ -33,16 +33,17 @@ internal fun QuranShellNavigationRail(
         Spacer(modifier = Modifier.height(16.dp))
         HomeTab.entries.forEach { tab ->
             val selected = selectedTab == tab
+            val tabLabel = androidx.compose.ui.res.stringResource(tab.labelRes)
             NavigationRailItem(
                 selected = selected,
                 onClick = { onSelectTab(tab) },
                 icon = {
                     Icon(
                         imageVector = if (selected) tab.selectedIcon else tab.unselectedIcon,
-                        contentDescription = tab.labelAr
+                        contentDescription = tabLabel
                     )
                 },
-                label = { Text(tab.labelAr) },
+                label = { Text(tabLabel) },
                 colors = NavigationRailItemDefaults.colors(
                     selectedIconColor = qc.onSelected,
                     selectedTextColor = qc.selected,

@@ -33,10 +33,13 @@ data class AudioPlaylistActions(
 )
 
 class AudioPlaylistDelegate(
-    application: Application,
+    private val repository: AudioPlaylistRepository,
     private val scope: CoroutineScope
 ) {
-    private val repository = AudioPlaylistRepository(application)
+    constructor(application: Application, scope: CoroutineScope) : this(
+        repository = AudioPlaylistRepository(application),
+        scope = scope
+    )
 
     val playlistsState: StateFlow<List<AudioPlaylist>> = repository.playlistsFlow
         .stateIn(scope, SharingStarted.WhileSubscribed(5_000), PresetAudioPlaylists.all)

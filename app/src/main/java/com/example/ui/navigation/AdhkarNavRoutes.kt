@@ -2,6 +2,8 @@ package com.example.ui.navigation
 
 import android.net.Uri
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -10,26 +12,26 @@ import androidx.navigation.navArgument
 import com.example.domain.model.DhikrCategory
 import com.example.ui.screens.adhkar.AdhkarCategoryBrowseScreen
 import com.example.ui.screens.adhkar.AdhkarDetailScreen
-import com.example.ui.viewmodel.AdhkarUiState
 import com.example.ui.viewmodel.AdhkarViewModel
-import com.example.ui.viewmodel.QuranUiState
+import com.example.ui.viewmodel.QuranViewModel
 
 internal fun NavGraphBuilder.addAdhkarNavigationRoutes(
     navController: NavHostController,
     adhkarViewModel: AdhkarViewModel,
-    adhkarState: AdhkarUiState,
-    uiState: QuranUiState
+    quranViewModel: QuranViewModel
 ) {
     composable(
         route = ROUTE_ADHKAR_BROWSE,
         arguments = listOf(navArgument(ROUTE_ADHKAR_ARG) { type = NavType.StringType })
     ) { backStackEntry ->
+        val liveAdhkarState by adhkarViewModel.uiState.collectAsStateWithLifecycle()
+        val liveQuranState by quranViewModel.uiState.collectAsStateWithLifecycle()
         val category = DhikrCategory.fromId(backStackEntry.arguments?.getString(ROUTE_ADHKAR_ARG))
         CompositionLocalProvider(LocalAnimatedVisibilityScope provides this@composable) {
             AdhkarCategoryBrowseScreen(
                 category = category,
-                uiState = adhkarState,
-                hapticEnabled = uiState.settings.hapticFeedbackEnabled,
+                uiState = liveAdhkarState,
+                hapticEnabled = liveQuranState.settings.hapticFeedbackEnabled,
                 onIncrementDhikr = adhkarViewModel::incrementDhikr,
                 onResetCategory = adhkarViewModel::resetCategory,
                 onToggleFavorite = adhkarViewModel::toggleFavorite,
@@ -57,6 +59,8 @@ internal fun NavGraphBuilder.addAdhkarNavigationRoutes(
             navArgument(ROUTE_ADHKAR_INDEX_ARG) { type = NavType.IntType; defaultValue = 0 }
         )
     ) { backStackEntry ->
+        val liveAdhkarState by adhkarViewModel.uiState.collectAsStateWithLifecycle()
+        val liveQuranState by quranViewModel.uiState.collectAsStateWithLifecycle()
         val category = DhikrCategory.fromId(backStackEntry.arguments?.getString(ROUTE_ADHKAR_ARG))
         val encodedChapter = backStackEntry.arguments?.getString(ROUTE_ADHKAR_CHAPTER_ARG).orEmpty()
         val chapterTitle = Uri.decode(encodedChapter)
@@ -64,11 +68,11 @@ internal fun NavGraphBuilder.addAdhkarNavigationRoutes(
         CompositionLocalProvider(LocalAnimatedVisibilityScope provides this@composable) {
             AdhkarDetailScreen(
                 category = category,
-                uiState = adhkarState,
+                uiState = liveAdhkarState,
                 chapterTitle = chapterTitle,
                 initialIndex = initialIndex,
-                autoAdvanceDhikr = uiState.settings.autoAdvanceDhikr,
-                hapticEnabled = uiState.settings.hapticFeedbackEnabled,
+                autoAdvanceDhikr = liveQuranState.settings.autoAdvanceDhikr,
+                hapticEnabled = liveQuranState.settings.hapticFeedbackEnabled,
                 onIncrementDhikr = adhkarViewModel::incrementDhikr,
                 onResetDhikr = adhkarViewModel::resetDhikr,
                 onResetCategory = adhkarViewModel::resetCategory,
